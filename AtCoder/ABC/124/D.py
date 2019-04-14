@@ -2,62 +2,37 @@
 
 N, K = map(int, input().split())
 S = input()
-bs = int(S,2)
-ls = list(S)
 
 # N, Kがそれぞれ10^5以下なので、O(NK)は不可能
 # 1の連続Bit数を最大化する
+# K回の操作で、ある区間におけるK個の00を11に変えることに相当。
+# (001100を110011にして、111111にするのも結局2回要している)
 
-def cnt_max_ones(x):
-    """x:intのうち、連続する1のビットで最大長のものを返す"""
-    mx = 0
-    cnt = 0
-    while x > 0:
-        if x & 1 == 1:
-            cnt += 1
-        else:
-            cnt = 0
-        if cnt > mx:
-            mx = cnt
-        x >>= 1
-    return mx
+# 00,11のグループで再カウント、[(start, end, True/False)]: Trueなら1
+start = 0
+l = []
+for i in range(1,N):
+    if S[i-1] == S[i]:
+        continue
+    else:
+        v = True if S[i-1] == "1" else False
+        l.append((start, i, v))
+        start = i
+v = True if S[-1] == "1" else False
+l.append((start, N, v))
 
-# 1100011などがあった時、000の長さ+左右の11の長さの合計が長い000を反転すればいい
+mx = 0
+L = len(l)
+for i, val in enumerate(l):
+    start, end, v = val
+    if v is True:   # "1"
+        # 1 0 1 0 1として、1+2Kのグループを1にできる
+        idx = min(i+2*K, L-1)
+    else:   # "0"
+        # 0 1 0 1として、2Kのグループを1にできる
+        idx = min(i+2*K-1, L-1)
+    ln = l[idx][1] - start
+    if ln > mx:
+        mx = ln
 
-# 結局のところ、一番長い000を反転すればよい？
-# 1を含む区間を反転→反転で2回行うのであれば、その左右をそれぞれ反転した方がいい？
-# さらに多くの複数区間をまたがる場合はどうなるんだ？
-
-# とりあえず0の位置をカウントしてみる
-zeros = []  # (start, end, len)
-i = 0
-
-while i < N:
-    while i < N and S[i] == "1":
-        i+=1
-    if i >= N:
-        break
-    start = i
-    end = i
-    while i < N and S[i] == "0":
-        end += 1
-        i+=1
-    zeros.append((start, end, end-start))
-
-zeros.sort(key=(lambda x:x[2]), reverse=True)
-
-print(S)
-print(zeros)
-
-# 0区間が長いものから反転していってみる
-
-for start, end, ln in zeros[:K]:
-    ls[start:end] = ["1" for i in range(ln)]
-
-print(ls)
-
-# テストケースに通らない。
-# 解法はもっと複雑みたい
-
-b = int("".join(ls),2)
-print(cnt_max_ones(b))
+print(mx)
