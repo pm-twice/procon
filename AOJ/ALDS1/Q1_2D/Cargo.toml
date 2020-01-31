@@ -1,0 +1,6 @@
+[package]
+name = "Q1_2D"
+version = "0.1.0"
+authors = ["tanihara"]
+
+[dependencies]
