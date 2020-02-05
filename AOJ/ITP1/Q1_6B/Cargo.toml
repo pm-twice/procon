@@ -1,6 +1,0 @@
-[package]
-name = "Q1_6B"
-version = "0.1.0"
-authors = ["tanihara"]
-
-[dependencies]
