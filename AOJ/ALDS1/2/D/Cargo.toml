@@ -1,6 +1,6 @@
 [package]
-name = "Q1_1D"
+name = "D"
 version = "0.1.0"
-authors = ["pm-twice"]
+authors = ["tanihara"]
 
 [dependencies]
