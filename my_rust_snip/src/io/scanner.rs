@@ -5,7 +5,14 @@ use std::str::FromStr;
 
 /// Readトレイトから1要素ずつ取り出すクラス。lockを渡せば高速読み取り可能
 /// 
-/// スニペットは`scanner`で登録
+/// # スニペット登録名
+/// `snp-scanner`
+/// 
+/// # 利用ライブラリ
+/// `
+/// use std::io::Read;
+/// use std::str::FromStr;
+/// `
 /// 
 /// # Example
 /// 
@@ -27,12 +34,11 @@ use std::str::FromStr;
 /// assert_eq!(n, 10);
 /// assert_eq!(a, vec![1,2,3,4,5,6,7,8,9,10]);
 /// ```
-#[snippet("scanner-def")]
+#[snippet("snp-scanner")]
 pub struct Scanner<R: Read> {
     reader: R,
 }
-
-#[snippet("scanner", include="scanner-def")]
+#[snippet("snp-scanner")]
 impl<R: Read> Scanner<R> {
     pub fn new(reader: R) -> Scanner<R> {
         Scanner {
