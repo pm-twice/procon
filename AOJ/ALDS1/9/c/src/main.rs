@@ -156,7 +156,8 @@ impl<T: Display + PartialOrd + Default + Debug + Clone> PriorityQueue<T> {
     }
 }
 
-fn main() {
+/// 自前の実装内容を呼び出す
+fn call_self_dev(){
     let sin = io::stdin();
     let sin = sin.lock();
     let mut sc = Scanner::new(sin);
@@ -184,4 +185,42 @@ fn main() {
             }
         }
     }
+}
+
+use std::collections::BinaryHeap;
+
+/// 標準ライブラリを用いた実装の場合
+fn use_lib() {
+    let sin = io::stdin();
+    let sin = sin.lock();
+    let mut sc = Scanner::new(sin);
+
+    let mut pq = BinaryHeap::new();
+
+    loop {
+        let cmd: String = sc.read();
+
+        match cmd.as_str() {
+            "insert" => {
+                let val: i64 = sc.read();
+                pq.push(val);
+            },
+            "extract" => {
+                if let Some(m) = pq.pop() {
+                    println!("{}", m);
+                }
+            },
+            "end" => {
+                break;
+            },
+            _ => {
+                unreachable!();
+            }
+        }
+    }
+}
+
+fn main() {
+    // call_self_dev();
+    use_lib();
 }
