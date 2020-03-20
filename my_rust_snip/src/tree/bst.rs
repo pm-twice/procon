@@ -50,6 +50,10 @@ use std::rc::Rc;
 /// assert_eq!(&root.postorder(), &vec![-1,17,18,27,28,55,60,63,88,30]);
 /// ```
 #[snippet("snp-bst")]
+#[snippet(prefix="use std::cmp::{Ord, PartialEq};")]
+#[snippet(prefix="use std::fmt::Display;")]
+#[snippet(prefix="use std::cell::RefCell;")]
+#[snippet(prefix="use std::rc::Rc;")]
 pub struct BST<T: Ord + Display + Clone> {
     root: Rc<RefCell<Node<T>>>
 }

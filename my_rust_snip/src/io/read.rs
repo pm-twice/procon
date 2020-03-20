@@ -38,6 +38,8 @@ use std::str::FromStr;
 /// assert_eq!(a, vec![1,2,3,4,5,6,7,8,9,10]);
 /// ```
 #[snippet("snp-read")]
+#[snippet(prefix="use std::io::Read;")]
+#[snippet(prefix="use std::str::FromStr;")]
 pub fn read<T: FromStr, R: Read>(sin: &mut R) -> T {
     // 冒頭の空白を飛ばして、次の空白までのcharを取得し、Stringに構築する
     let s = sin.by_ref().bytes().map(|c| c.expect("failed to read char") as char)

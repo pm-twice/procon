@@ -35,6 +35,8 @@ use std::str::FromStr;
 /// assert_eq!(a, vec![1,2,3,4,5,6,7,8,9,10]);
 /// ```
 #[snippet("snp-scanner")]
+#[snippet(prefix="use std::io::{self,Read};")]
+#[snippet(prefix="use std::str::FromStr;")]
 pub struct Scanner<R: Read> {
     reader: R,
 }

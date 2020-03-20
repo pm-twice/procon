@@ -14,3 +14,6 @@ cargo snippet -t vscode | grep -vG "^\s*\"\s*#\[doc = " > snip.json
 また、スニペットのテストは`cargo test`でOK。
 
 ドキュメント生成は`cargo doc`で実行される。
+
+use するライブラリは、prefixアトリビュートで指定可能。
+
