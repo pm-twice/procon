@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::io::{self, Read};
 use std::str::FromStr;
 use std::u64;
@@ -44,6 +45,43 @@ fn find_shortest(mat: &Vec<Vec<u64>>, dist: &mut Vec<u64>) {
     }
 }
 
+// ダイクストラのアルゴリズムを使った最短経路探索
+fn dijkstra(mat: &Vec<Vec<u64>>, dist: &mut Vec<u64>) {
+    let n = mat.len();
+    // 初期状態
+    dist[0] = 0;
+    for i in 1..n {
+        dist[i] = u64::MAX;
+    }
+
+    let mut par: Vec<usize> = vec![0; n];       // 親の添え字
+    let mut check: Vec<bool> = vec![false; n];  // 訪問状態
+
+    for _ in 0..n {
+        // 探索済みでない最小のd[u]を調査
+        let mut min = u64::MAX;
+        let mut mid = 0;
+        for i in 0..n {
+            if check[i] == false && dist[i] <= min {
+                mid = i;
+                min = dist[i];
+            }
+        }
+
+        // d[u]を訪問済みとし、未訪問の集合を更新する
+        check[mid] = true;
+        for i in 0..n {
+            if check[i] == false 
+                && mat[mid][i] != u64::MAX 
+                && dist[mid] + mat[mid][i] < dist[i] {
+                par[i] = mid;
+                dist[i] = dist[mid] + mat[mid][i];
+            }
+        }
+    }
+}
+
+
 fn main() {
     let sin = io::stdin();
     let sin = sin.lock();
@@ -63,7 +101,8 @@ fn main() {
 
     // 0からiまでの最短経路
     let mut dist: Vec<u64> = vec![u64::MAX; n];
-    find_shortest(&mat, &mut dist);
+    // find_shortest(&mat, &mut dist);
+    dijkstra(&mat, &mut dist);
 
     for i in 0..n {
         println!("{} {}", i, dist[i]);
