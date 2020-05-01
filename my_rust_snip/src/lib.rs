@@ -31,3 +31,6 @@ pub mod io;
 
 /// 木
 pub mod tree;
+
+/// 集合
+pub mod set;
