@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-use std::io::{self, Read, Write};
+use std::io::{self, Read, Write, BufWriter};
 use std::str::FromStr;
 pub struct Scanner<R: Read> {
     reader: R,
@@ -129,7 +129,7 @@ fn main() {
 
     let kt = Kdtree::new(&points);
     let out = io::stdout();
-    let mut out = out.lock();
+    let mut out = BufWriter::new(out.lock());
     for (sx, tx, sy, ty) in squares {
         let results = kt.find(sx, tx, sy, ty);
         for r in results {
