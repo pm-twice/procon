@@ -1,3 +1,5 @@
+mod bst;
 pub use self::bst::BST;
 
-mod bst;
+mod segtree;
+pub use self::segtree::SegmentTree;
