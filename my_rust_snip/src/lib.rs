@@ -32,5 +32,8 @@ pub mod io;
 /// 木
 pub mod tree;
 
+/// グラフ
+pub mod graph;
+
 /// 集合
 pub mod set;
